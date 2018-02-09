@@ -1,0 +1,49 @@
+ext.nodeVersion = '8.9.4'
+
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "com.moowork.gradle:gradle-node-plugin:1.2.0"
+    }
+}
+
+apply plugin: 'kotlin-platform-js'
+apply plugin: 'com.moowork.node'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
+    testCompile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
+    expectedBy project(":common")
+}
+
+[compileKotlin2Js, compileTestKotlin2Js]*.configure {
+    kotlinOptions {
+        sourceMap = true
+        sourceMapEmbedSources = "always"
+        moduleKind = 'commonjs'
+    }
+}
+
+node {
+    version = nodeVersion
+    download = true
+}
+
+task installMocha(type: NpmTask) {
+    args = ['install', 'mocha']
+}
+
+task runMocha(type: NodeTask, dependsOn: [compileTestKotlin2Js, installMocha]) {
+    script = file('node_modules/mocha/bin/mocha')
+    args = [compileTestKotlin2Js.outputFile]
+}
+
+test.dependsOn runMocha
