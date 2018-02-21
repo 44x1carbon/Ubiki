@@ -1,0 +1,65 @@
+{
+    "contextualTermsList": [
+        {
+            "context": {
+                "name": "hoge"
+            },
+            "terms": {
+                "terminologies": [
+                ]
+            }
+        },
+        {
+            "context": {
+                "name": "name"
+            },
+            "terms": {
+                "terminologies": [
+                    {
+                        "keyword": {
+                            "word": "hoge"
+                        },
+                        "meaning": {
+                            "text": "hogehoge"
+                        }
+                    },
+                    {
+                        "keyword": {
+                            "word": "hoge2"
+                        },
+                        "meaning": {
+                            "text": "hogehogehogehogehogehogehoge"
+                        }
+                    },
+                    {
+                        "keyword": {
+                            "word": "日本語"
+                        },
+                        "meaning": {
+                            "text": "あああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ"
+                        }
+                    },
+                    {
+                        "keyword": {
+                            "word": "fuga"
+                        },
+                        "meaning": {
+                            "text": "適当な言葉"
+                        }
+                    }
+                ]
+            }
+        }
+    ],
+    "_designatedContext": {
+        "name": "name"
+    },
+    "contextList": [
+        {
+            "name": "hoge"
+        },
+        {
+            "name": "name"
+        }
+    ]
+}

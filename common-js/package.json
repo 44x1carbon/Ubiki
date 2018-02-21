@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "mocha": "^5.0.0"
+    "kotlin": "^1.2.21",
+    "kotlin-test": "^1.2.21",
+    "mocha": "^5.0.1"
   }
 }

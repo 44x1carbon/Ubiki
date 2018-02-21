@@ -11,15 +11,18 @@ buildscript {
     }
 }
 
+apply plugin: 'kotlinx-serialization'
 apply plugin: 'kotlin-platform-js'
 apply plugin: 'com.moowork.node'
 
 repositories {
     mavenCentral()
+    maven { url "https://kotlin.bintray.com/kotlinx" }
 }
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
+    compile "org.jetbrains.kotlinx:kotlinx-serialization-runtime-js:$serialization_version"
     testCompile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
     expectedBy project(":common")
 }
@@ -37,11 +40,29 @@ node {
     download = true
 }
 
+task populateNodeModules(type: Copy, dependsOn: compileKotlin2Js) {
+    from compileKotlin2Js.destinationDir
+
+    configurations.testCompile.each {
+        from zipTree(it.absolutePath).matching { include '*.js' }
+    }
+
+    into "${buildDir}/node_modules"
+}
+
+//task installKotlin(type: NpmTask) {
+//    args = ['install', 'kotlin']
+//}
+//
+//task installKotlinTest(type: NpmTask) {
+//    args = ['install', 'kotlin-test']
+//}
+
 task installMocha(type: NpmTask) {
     args = ['install', 'mocha']
 }
 
-task runMocha(type: NodeTask, dependsOn: [compileTestKotlin2Js, installMocha]) {
+task runMocha(type: NodeTask, dependsOn: [compileTestKotlin2Js, installMocha, populateNodeModules]) {
     script = file('node_modules/mocha/bin/mocha')
     args = [compileTestKotlin2Js.outputFile]
 }

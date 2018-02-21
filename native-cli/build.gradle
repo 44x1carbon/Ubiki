@@ -1,0 +1,30 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url  "https://dl.bintray.com/jetbrains/kotlin-native-dependencies" }
+
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-native-gradle-plugin:0.3"
+
+    }
+}
+
+apply plugin: 'konan'
+apply plugin: 'idea'
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    compile 'com.github.kgilmer:kotlinx-cli:bdb0c811'
+}
+
+konanArtifacts {
+    LogoGenMacbook {
+        target "macbook"
+    }
+}

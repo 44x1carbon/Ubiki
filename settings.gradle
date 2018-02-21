@@ -1,6 +1,8 @@
-rootProject.name = 'try-kotlin-multiplatform'
+rootProject.name = 'ubiki'
 
 include 'common'
 include 'common-jvm'
 include 'common-js'
+include 'cli'
+include 'native-cli'
 
